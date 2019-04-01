@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const alphabet = {
   aaaaa: 'A',
   aaaab: 'B',
