@@ -1,0 +1,27 @@
+{
+  "name": "franbac",
+  "version": "1.0.0",
+  "description": "tiny utility to decode bacon cipher texts",
+  "main": "index.js",
+  "bin": {
+    "franbac": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stripedpajamas/franbac.git"
+  },
+  "keywords": [
+    "francis",
+    "bacon",
+    "cipher"
+  ],
+  "author": "Peter Squicciarini <stripedpajamas273@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stripedpajamas/franbac/issues"
+  },
+  "homepage": "https://github.com/stripedpajamas/franbac#readme"
+}
