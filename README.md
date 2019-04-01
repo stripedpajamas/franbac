@@ -1,4 +1,4 @@
-# franbac
+# franbac 🥓
 
 helps decode strings that use two different characters to represent A's and B's. more info about the bacon cipher [here](https://en.wikipedia.org/wiki/Bacon%27s_cipher)
 
