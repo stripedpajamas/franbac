@@ -17,5 +17,9 @@ $ npx franbac 🌸🌿🌸🌿🌿🌿🌸🌿🌿🌸🌿🌸🌸🌸🌿🌿�
 MYSVNANDSTARS
 ```
 
+## roadmap
+- [ ] support encoding given A and B substitutions
+- [ ] support encoding/decoding a file
+
 ## license
 MIT
