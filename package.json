@@ -1,6 +1,6 @@
 {
   "name": "franbac",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "tiny utility to decode bacon cipher texts",
   "main": "index.js",
   "bin": {
