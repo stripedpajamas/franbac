@@ -1,58 +1,11 @@
 #!/usr/bin/env node
 
-const decodeAlphabet = {
-  aaaaa: 'A',
-  aaaab: 'B',
-  aaaba: 'C',
-  aaabb: 'D',
-  aabaa: 'E',
-  aabab: 'F',
-  aabba: 'G',
-  aabbb: 'H',
-  abaaa: 'I',
-  abaab: 'K',
-  ababa: 'L',
-  ababb: 'M',
-  abbaa: 'N',
-  abbab: 'O',
-  abbba: 'P',
-  abbbb: 'Q',
-  baaaa: 'R',
-  baaab: 'S',
-  baaba: 'T',
-  baabb: 'V',
-  babaa: 'W',
-  babab: 'X',
-  babba: 'Y',
-  babbb: 'Z'
-}
+const {
+  decodeAlphabetDefault,
+  encodeAlphabetDefault,
+  decodeAlphabetAlt
+} = require('./alphabets')
 
-const encodeAlphabet = {
-  A: 'aaaaa',
-  B: 'aaaab',
-  C: 'aaaba',
-  D: 'aaabb',
-  E: 'aabaa',
-  F: 'aabab',
-  G: 'aabba',
-  H: 'aabbb',
-  I: 'abaaa',
-  K: 'abaab',
-  L: 'ababa',
-  M: 'ababb',
-  N: 'abbaa',
-  O: 'abbab',
-  P: 'abbba',
-  Q: 'abbbb',
-  R: 'baaaa',
-  S: 'baaab',
-  T: 'baaba',
-  V: 'baabb',
-  W: 'babaa',
-  X: 'babab',
-  Y: 'babba',
-  Z: 'babbb'
-}
 
 // get input from command line
 async function getInput () {
@@ -73,15 +26,16 @@ async function validateInput (input) {
 }
 
 // decode given a = something
-function decode (a, text) {
+function decode (a, text, alt) {
   const translatedInput = []
   for (c of text) {
     translatedInput.push(c === a ? 'a' : 'b')
   }
+  const alphabet = alt ? decodeAlphabetAlt : decodeAlphabetDefault
   const output = []
   for (let i = 0; i < translatedInput.length; i += 5) {
     const chunk = translatedInput.slice(i, i + 5).join('')
-    const decoded = decodeAlphabet[chunk]
+    const decoded = alphabet[chunk] || '?'
     if (!decoded) return ''
     output.push(decoded)
   }
@@ -99,7 +53,7 @@ function encode ([a, b, text]) {
   }
   const output = []
   for (let c of text) {
-    const encoded = encodeAlphabet[c]
+    const encoded = encodeAlphabetDefault[c]
     if (!encoded) continue
     output.push(encoded)
   }
@@ -112,21 +66,28 @@ function encode ([a, b, text]) {
 
 // decode given first letter = a and second letter = a
 function decodeOptions ([letters, input]) {
-  return [decode(letters[0], input), decode(letters[1], input)]
+  return [
+    decode(letters[0], input),
+    decode(letters[1], input),
+    decode(letters[0], input, true), // alternate alphabet
+    decode(letters[1], input, true)  // alternate alphabet
+  ].filter(Boolean)
 }
 
 
 // present possibilities
-function present ([a, b]) {
-  if (a && b) {
-    console.log('Option A:\n\t%s\nOption B:\n\t%s', a, b)
-  } else if (!b) {
-    console.log(a)
-  } else if (!a) {
-    console.log(b)
-  } else {
+function present (possibilities) {
+  if (!possibilities.length) {
     console.log('Invalid ciphertext')
+    return
   }
+  if (possibilities.length === 1) {
+    console.log(possibilities.pop())
+    return
+  }
+  possibilities.forEach((possibility, idx) => {
+    console.log('Option %d:\n\t%s\n', idx + 1, possibility)
+  })
 }
 
 function main() {
