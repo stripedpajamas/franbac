@@ -9,6 +9,7 @@ easist to use `npx` to run on-demand
 
 ### decode
 text: `franbac decode <ciphertext>`
+
 file: `franbac file decode <filename>`
 
 ```bash
@@ -24,6 +25,7 @@ MYSVNANDSTARS
 
 ### encode
 text: `franbac encode <a> <b> <plaintext>`
+
 file: `franbac file encode <a> <b> <filename>`
 
 ```bash
