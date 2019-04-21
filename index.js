@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const fs = require('fs')
 const {
   decodeAlphabetDefault,
   encodeAlphabetDefault,
@@ -8,8 +9,12 @@ const {
 
 
 // get input from command line
-async function getInput () {
-  return [...process.argv].slice(3).join(' ')
+async function getInput (args, opts = {}) {
+  let input = args
+  if (opts.file) {
+    input = input.concat(fs.readFileSync(opts.file, 'utf8').trim().split(' '))
+  }
+  return input.join(' ')
 }
 
 // check that only two characters are present
@@ -35,7 +40,7 @@ function decode (a, text, alt) {
   const output = []
   for (let i = 0; i < translatedInput.length; i += 5) {
     const chunk = translatedInput.slice(i, i + 5).join('')
-    const decoded = alphabet[chunk] || '?'
+    const decoded = alphabet[chunk]
     if (!decoded) return ''
     output.push(decoded)
   }
@@ -91,17 +96,24 @@ function present (possibilities) {
 }
 
 function main() {
-  const mode = process.argv[2]
-  switch (mode) {
+  // franbac [file] <mode> [a] [b] <input/filename>
+  const args = [...process.argv].slice(2)
+  const opts = {}
+  opts.mode = args.shift()
+  if (opts.mode === 'file') {
+    opts.file = args.pop()
+    opts.mode = args.shift()
+  }
+  switch (opts.mode) {
     case 'encode':
-      getInput()
+      getInput(args, opts)
       .then(getAB)
       .then(encode)
       .then(present)
       .catch((e) => console.error(e))
     break
     case 'decode':
-      getInput()
+      getInput(args, opts)
       .then(validateInput)
       .then(decodeOptions)
       .then(present)

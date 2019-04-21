@@ -8,7 +8,8 @@ it will try to decode with letter 1 = A and letter 2 = A. if one of those decode
 easist to use `npx` to run on-demand
 
 ### decode
-`franbac decode <ciphertext>`
+text: `franbac decode <ciphertext>`
+file: `franbac file decode <filename>`
 
 ```bash
 $ npx franbac decode aaaaaaaaabaaaba
@@ -22,7 +23,8 @@ MYSVNANDSTARS
 ```
 
 ### encode
-`franbac <encode> <a> <b> <plaintext>`
+text: `franbac encode <a> <b> <plaintext>`
+file: `franbac file encode <a> <b> <filename>`
 
 ```bash
 $ npx franbac encode t s hello world
@@ -35,10 +37,21 @@ $ npx franbac encode 🥓 🎉 hello world
 🥓🥓🎉🎉🎉🥓🥓🎉🥓🥓🥓🎉🥓🎉🥓🥓🎉🥓🎉🥓🥓🎉🎉🥓🎉🎉🥓🎉🥓🥓🥓🎉🎉🥓🎉🎉🥓🥓🥓🥓🥓🎉🥓🎉🥓🥓🥓🥓🎉🎉
 ```
 
+### files
+encode and decode file
+```bash
+$ echo "hello world" > helloworld.txt
+$ npx franbac file encode 6 9 helloworld.txt > helloworld.enc
+$ cat helloworld.enc
+66999669666969669696699699696669969966666969666699
+$ npx franbac file decode helloworld.enc
+HELLOWORLD
+```
+
 ## roadmap
 - [x] support decoding
 - [x] support encoding given A and B substitutions
-- [ ] support encoding/decoding a file
+- [x] support encoding/decoding a file
 
 ## license
 MIT
