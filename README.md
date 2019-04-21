@@ -8,9 +8,7 @@ it will try to decode with letter 1 = A and letter 2 = A. if one of those decode
 easist to use `npx` to run on-demand
 
 ### decode
-text: `franbac decode <ciphertext>`
-
-file: `franbac file decode <filename>`
+`franbac decode <ciphertext>`
 
 ```bash
 $ npx franbac decode aaaaaaaaabaaaba
@@ -24,9 +22,7 @@ MYSVNANDSTARS
 ```
 
 ### encode
-text: `franbac encode <a> <b> <plaintext>`
-
-file: `franbac file encode <a> <b> <filename>`
+`franbac encode <a> <b> <plaintext>`
 
 ```bash
 $ npx franbac encode t s hello world
@@ -40,6 +36,11 @@ $ npx franbac encode 🥓 🎉 hello world
 ```
 
 ### files
+encoding: `franbac file encode <a> <b> <filename>`
+
+decoding: `franbac file decode <filename>`
+
+
 encode and decode file
 ```bash
 $ echo "hello world" > helloworld.txt
